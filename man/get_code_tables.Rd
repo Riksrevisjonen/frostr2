@@ -42,5 +42,8 @@ Get metadata about the code tables.
 Use the default query parameters to retrieve all code tables.
 }
 \examples{
+\dontrun{
+# Get all code tables
 df <- get_code_tables()
+}
 }

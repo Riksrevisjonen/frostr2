@@ -41,10 +41,14 @@ get_elements(
 
 \item{statuses}{character: Statuses}
 
+\item{calculation_method}{character: Calculation method}
+
 \item{categories}{character: Categories}
 
 \item{time_offsets}{character: The time offsets to get observations for,
 specified as ISO-8601 periods.}
+
+\item{sensor_levels}{character: Sensor levels}
 
 \item{cf_standard_names}{character: CF standard names}
 
@@ -52,7 +56,7 @@ specified as ISO-8601 periods.}
 
 \item{cf_units}{character: CF units}
 
-\item{cf_versions}{character: CF versions #'}
+\item{cf_versions}{character: CF versions}
 
 \item{fields}{character: Fields to return in the response.}
 
@@ -81,5 +85,8 @@ Get metadata about the weather and climate elements.
 Use the default query parameters to retrieve all elements.
 }
 \examples{
+\dontrun{
+# Get all elements
 df <- get_elements()
+}
 }

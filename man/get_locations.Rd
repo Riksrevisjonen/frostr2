@@ -42,3 +42,8 @@ Get metadata for location names.
 \details{
 Use the default query parameters to retrieve all location names.
 }
+\examples{
+\dontrun{
+df <- get_locations()
+}
+}

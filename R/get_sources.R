@@ -51,7 +51,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' # Get all sources
 #' df <- get_sources()
+#' }
 get_sources <- function(ids = NULL,
                         types = NULL,
                         elements = NULL,

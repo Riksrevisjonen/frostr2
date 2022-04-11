@@ -39,8 +39,10 @@
 #' @return tibble or list
 #' @export
 #' @examples
+#' \dontrun{
+#' # Example query
 #' df <- get_observations(
-#'   sources = c("SN18700", "SN90450", "test"),
+#'   sources = c("SN18700", "SN90450"),
 #'   reference_time = "2010-04-01/2010-04-03",
 #'   elements = c(
 #'     "mean(air_temperature P1D)",
@@ -48,6 +50,7 @@
 #'     "mean(wind_speed P1D)"
 #'   )
 #' )
+#' }
 get_observations <- function(sources,
                              reference_time,
                              elements,
@@ -115,7 +118,9 @@ get_observations <- function(sources,
 #' @param level_units character: Sensor level units
 #' @export
 #' @examples
+#' \dontrun{
 #' df <- get_observations_ts()
+#' }
 get_observations_ts <-
   function(sources = NULL,
            reference_time = NULL,

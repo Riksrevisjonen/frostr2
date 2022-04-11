@@ -7,6 +7,11 @@
 #' @param names character: Location name(s)
 #' @inheritParams get_sources
 #' @inheritParams get_observations
+#' @export
+#' @examples
+#' \dontrun{
+#' df <- get_locations()
+#' }
 get_locations <- function(names = NULL,
                           geometry = NULL,
                           fields = NULL,

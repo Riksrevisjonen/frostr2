@@ -112,5 +112,8 @@ Get metadata for the source entities.
 Use the default query parameters to retrieve all sources.
 }
 \examples{
+\dontrun{
+# Get all sources
 df <- get_sources()
+}
 }

@@ -69,6 +69,8 @@ create_query(
 
 \item{version}{character: API version.}
 
+\item{calculation_method}{character: Calculation method}
+
 \item{categories}{character: Categories}
 
 \item{cf_standard_names}{character: CF standard names}
@@ -77,7 +79,7 @@ create_query(
 
 \item{cf_units}{character: CF units}
 
-\item{cf_versions}{character: CF versions #'}
+\item{cf_versions}{character: CF versions}
 
 \item{code_tables}{character: Code tables}
 
@@ -158,6 +160,8 @@ etc.}
 
 \item{reference_time}{character: Time range to get observations for, in
 ISO-8601 format.}
+
+\item{sensor_levels}{character: Sensor levels}
 
 \item{ship_code}{character: Ship code. If specified, only sources whose
 'shipCodes' attribute contains at least one name that matches this search

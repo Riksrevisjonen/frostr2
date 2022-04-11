@@ -50,7 +50,9 @@ get_climate_normals <- function(sources,
 #' @inheritParams get_climate_normals
 #' @export
 #' @examples
+#' \dontrun{
 #' df <- get_available_climate_normals()
+#' }
 get_available_climate_normals <-
   function(sources = NULL,
            elements = NULL,

@@ -82,5 +82,7 @@ Get available time series for observations.
 Use the default query parameters to retrieve all time series.
 }
 \examples{
+\dontrun{
 df <- get_observations_ts()
+}
 }

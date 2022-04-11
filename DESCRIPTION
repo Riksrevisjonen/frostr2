@@ -27,6 +27,7 @@ Suggests:
     markdown
 Language: en-US
 Imports: 
+    attempt, 
     httr2,
     jsonlite, 
     magrittr,

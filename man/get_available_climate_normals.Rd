@@ -41,5 +41,7 @@ returned, including the raw `httr2_response`.}
 Get available combinations of sources, elements, and periods for climate normals.
 }
 \examples{
+\dontrun{
 df <- get_available_climate_normals()
+}
 }

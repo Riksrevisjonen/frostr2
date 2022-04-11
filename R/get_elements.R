@@ -14,14 +14,19 @@
 #' @param cf_standard_names character: CF standard names
 #' @param cf_cell_methods character: CF cell methods
 #' @param cf_units character: CF units
-#' @param cf_versions character: CF versions #'
+#' @param cf_versions character: CF versions
+#' @param sensor_levels character: Sensor levels
+#' @param calculation_method character: Calculation method
 #' @param units character: Units
 #' @param lang character: ISO language/locale to be used for search filters and
 #'   return values
 #' @return tibble or list
 #' @export
 #' @examples
+#' \dontrun{
+#' # Get all elements
 #' df <- get_elements()
+#' }
 get_elements <- function(ids = NULL,
                          names = NULL,
                          descriptions = NULL,
@@ -96,7 +101,10 @@ get_elements <- function(ids = NULL,
 #' @inheritParams get_observations
 #' @export
 #' @examples
+#' \dontrun{
+#' # Get all code tables
 #' df <- get_code_tables()
+#' }
 get_code_tables <- function(ids = NULL,
                             fields = NULL,
                             lang = c("en-US", "nb-NO", "nn-NO"),

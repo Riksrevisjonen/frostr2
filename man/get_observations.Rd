@@ -87,8 +87,10 @@ For possible input parameters see `get_sources()`, `get_elements()`,
 and `get_observations_timeseries()`.
 }
 \examples{
+\dontrun{
+# Example query
 df <- get_observations(
-  sources = c("SN18700", "SN90450", "test"),
+  sources = c("SN18700", "SN90450"),
   reference_time = "2010-04-01/2010-04-03",
   elements = c(
     "mean(air_temperature P1D)",
@@ -96,4 +98,5 @@ df <- get_observations(
     "mean(wind_speed P1D)"
   )
 )
+}
 }
