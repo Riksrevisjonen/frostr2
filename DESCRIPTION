@@ -1,0 +1,42 @@
+Package: frostr2
+Type: Package
+Title: Client for the MET FROST API 
+Version: 0.0.0.9000
+Authors@R: 
+     c(person(given = "Aleksander",
+            family = "Eilertsen",
+            role = c("aut", "cre"),
+            email = "ale@riksrevisjonen.no"),
+     person(given = "Office of the Auditor General of Norway",
+            role = "cph")
+     )
+Description: An R client to MET Norway's 'Frost' API <https://frost.met.no/index.html> 
+    The 'Frost' API, and the underlying data, is  made available by the Norwegian 
+    Meteorological Institute (MET Norway). The data and products are distributed 
+    under the Norwegian License for Open Data 2.0 (NLOD) <https://data.norge.no/nlod/en/2.0>
+    and Creative Commons 4.0 <https://creativecommons.org/licenses/by/4.0/>.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    covr,
+    testthat (>= 3.0.0),
+    spelling,
+    knitr,
+    rmarkdown,
+    markdown
+Language: en-US
+Imports: 
+    httr2,
+    jsonlite, 
+    magrittr,
+    tibble,
+    tidyr,
+    readr,
+    memoise,
+    cachem
+Depends: 
+    R (>= 3.5.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+RoxygenNote: 7.1.2
