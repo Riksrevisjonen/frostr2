@@ -13,7 +13,8 @@ get_climate_normals <- function(sources,
                                 period = NULL,
                                 format = "jsonld",
                                 version = "v0",
-                                client = get_api_client(),
+                                client = get_frost_client(),
+                                auth_type = c("basic", "oauth"),
                                 flatten = TRUE,
                                 return_response = FALSE) {
 
@@ -24,10 +25,11 @@ get_climate_normals <- function(sources,
   # Create query
   req <- create_query(
     endpoint = "climatenormals",
+    client = client,
+    auth_type = auth_type,
     sources = sources,
     elements = elements,
     period = period,
-    client = client,
     version = version,
     format = format
   )
@@ -60,7 +62,8 @@ get_available_climate_normals <-
            fields = NULL,
            format = "jsonld",
            version = "v0",
-           client = get_api_client(),
+           client = get_frost_client(),
+           auth_type = c("basic", "oauth"),
            flatten = TRUE,
            return_response = FALSE) {
 
@@ -71,11 +74,12 @@ get_available_climate_normals <-
     # Create query
     req <- create_query(
       endpoint = "climatenormals/available",
+      client = client,
+      auth_type = auth_type,
       sources = sources,
       elements = elements,
       period = period,
       fields = fields,
-      client = client,
       version = version,
       format = format
     )

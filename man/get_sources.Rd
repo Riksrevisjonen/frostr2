@@ -24,7 +24,8 @@ get_sources(
   fields = NULL,
   version = "v0",
   format = c("jsonld", "csv"),
-  client = get_api_client(),
+  client = get_frost_client(),
+  auth_type = c("basic", "oauth"),
   flatten = TRUE,
   return_response = FALSE
 )
@@ -35,7 +36,8 @@ get_sources(
 \item{types}{character: Source type. Either "SensorSystem",
 "InterpolatedDataset", or "RegionDataset".}
 
-\item{elements}{character: Elements. See `get_elements()` for available values.}
+\item{elements}{character: Elements. See `get_elements()` for available
+values.}
 
 \item{geometry}{character: Sources defined by a specified geometry.
 Geometries are specified as either nearest(POINT(...)) or POLYGON(...)
@@ -94,10 +96,12 @@ result.}
 
 \item{format}{character: Response format.}
 
-\item{client}{list: List with client id and secret.}
+\item{client}{list: List with client id and secret. Defaults to the
+`MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
-\item{flatten}{logical: If TRUE the response is transformed to an unnested
-table.}
+\item{auth_type}{character: Authentication method, either 'basic' or 'oauth'.}
+
+\item{flatten}{logical: If TRUE the response is transformed to a table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}

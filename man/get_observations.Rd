@@ -21,7 +21,8 @@ get_observations(
   fields = NULL,
   version = "v0",
   format = c("jsonld", "csv"),
-  client = get_api_client(),
+  client = get_frost_client(),
+  auth_type = c("basic", "oauth"),
   flatten = TRUE,
   return_response = FALSE
 )
@@ -32,7 +33,8 @@ get_observations(
 \item{reference_time}{character: Time range to get observations for, in
 ISO-8601 format.}
 
-\item{elements}{character: Elements. See `get_elements()` for available values.}
+\item{elements}{character: Elements. See `get_elements()` for available
+values.}
 
 \item{max_age}{character: The maximum observation age as an ISO-8601 period.}
 
@@ -68,10 +70,12 @@ etc.}
 
 \item{format}{character: Response format.}
 
-\item{client}{list: List with client id and secret.}
+\item{client}{list: List with client id and secret. Defaults to the
+`MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
-\item{flatten}{logical: If TRUE the response is transformed to an unnested
-table.}
+\item{auth_type}{character: Authentication method, either 'basic' or 'oauth'.}
+
+\item{flatten}{logical: If TRUE the response is transformed to a table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}
@@ -83,8 +87,8 @@ tibble or list
 Get weather observations.
 }
 \details{
-For possible input parameters see `get_sources()`, `get_elements()`,
-and `get_observations_timeseries()`.
+For possible input parameters see `get_sources()`, `get_elements()`, and
+`get_observations_timeseries()`.
 }
 \examples{
 \dontrun{

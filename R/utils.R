@@ -1,21 +1,6 @@
 #' @import httr2
 NULL
 
-#' get_api_client
-#' @noRd
-get_api_client <- function() {
-  id <- Sys.getenv("MET_FROST_ID")
-  # secret <- Sys.getenv("MET_FROST_SECRET")
-  if (identical(id, "")) {
-    stop("No client id found, please supply with `client` argument or with MET_FROST_ID env var")
-  }
-  # if (identical(secret, "")) {
-  #   stop("No client secret found, please supply with `client` argument or with MET_FROST_SECRET env var")
-  # }
-  # list(id = id, secrect = secret)
-  list(id = id)
-}
-
 #' send_query
 #' @param req A httr2 request
 #' @noRd
@@ -28,6 +13,7 @@ send_query <- function(req) {
       # max_seconds = 10,
       # backoff = ~ 2
     ) %>%
+    req_throttle(rate = 1) %>% # Max 1 request per second
     req_error(is_error = function(resp) FALSE) %>%
     req_perform()
   resp
@@ -42,7 +28,7 @@ parse_response <- function(resp, flatten, return_response) {
   # Special parser if the response failed
   resp_error <- resp_is_error(resp)
   if (resp_error) {
-    if (resp$status_code == 414) {
+    if (resp$status_code %in% c(414, 503)) {
       parsed <- rawToChar(resp$body)
     } else {
       parsed <- jsonlite::fromJSON(rawToChar(resp$body))$error$reason
@@ -62,7 +48,7 @@ parse_response <- function(resp, flatten, return_response) {
   }
 
   if (!return_response) {
-    msg <- sprintf("The API returned an error (%s):\n *%s", resp$status_code, parsed)
+    msg <- sprintf("The API returned an error (%s):\n* %s", resp$status_code, parsed)
     attempt::stop_if(resp_error, msg = msg)
     return(parsed)
   } else {

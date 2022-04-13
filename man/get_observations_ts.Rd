@@ -21,7 +21,7 @@ get_observations_ts(
   fields = NULL,
   version = "v0",
   format = "jsonld",
-  client = get_api_client(),
+  client = get_frost_client(),
   flatten = TRUE,
   return_response = FALSE
 )
@@ -32,7 +32,8 @@ get_observations_ts(
 \item{reference_time}{character: Time range to get observations for, in
 ISO-8601 format.}
 
-\item{elements}{character: Elements. See `get_elements()` for available values.}
+\item{elements}{character: Elements. See `get_elements()` for available
+values.}
 
 \item{time_offsets}{character: The time offsets to get observations for,
 specified as ISO-8601 periods.}
@@ -67,10 +68,10 @@ etc.}
 
 \item{format}{character: Response format.}
 
-\item{client}{list: List with client id and secret.}
+\item{client}{list: List with client id and secret. Defaults to the
+`MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
-\item{flatten}{logical: If TRUE the response is transformed to an unnested
-table.}
+\item{flatten}{logical: If TRUE the response is transformed to a table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}
@@ -83,6 +84,6 @@ Use the default query parameters to retrieve all time series.
 }
 \examples{
 \dontrun{
-df <- get_observations_ts()
+df <- get_observations_ts("SN23670")
 }
 }

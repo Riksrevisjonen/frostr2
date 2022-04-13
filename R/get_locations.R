@@ -17,7 +17,8 @@ get_locations <- function(names = NULL,
                           fields = NULL,
                           version = "v0",
                           format = "jsonld",
-                          client = get_api_client(),
+                          client = get_frost_client(),
+                          auth_type = c("basic", "oauth"),
                           flatten = TRUE,
                           return_response = FALSE) {
 
@@ -29,6 +30,7 @@ get_locations <- function(names = NULL,
   req <- create_query(
     endpoint <- "locations",
     client = client,
+    auth_type = auth_type,
     version = version,
     format = format,
     names = names,

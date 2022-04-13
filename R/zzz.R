@@ -1,6 +1,8 @@
 .onLoad <- function(libname, pkgname) {
   if (!Sys.getenv("FROSTR2_DISABLE_CACHING") == "TRUE") {
     cm <- cachem::cache_mem(max_size = 512 * 1024^2, evict = "lru")
+    cm_token <- cachem::cache_mem(max_size = 1024, max_age = 3600 * 23, max_n = 1)
+    create_token <<- memoise::memoise(create_token, cache = cm_token)
     get_observations <<- memoise::memoise(get_observations, cache = cm)
     get_rainfall <<- memoise::memoise(get_rainfall, cache = cm)
     get_climate_normals <<- memoise::memoise(get_climate_normals, cache = cm)
@@ -11,8 +13,7 @@
     get_observations_ts <<-
       memoise::memoise(get_observations_ts, cache = cm)
     get_available_climate_normals <<-
-      memoise::memoise(get_climate_normals, cache = cm)
-
+      memoise::memoise(get_available_climate_normals, cache = cm)
   }
 }
 

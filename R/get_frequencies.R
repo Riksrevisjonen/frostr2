@@ -12,7 +12,9 @@
 #' @return tibble or list
 #' @export
 #' @examples
+#' \dontrun{
 #' df <- get_rainfall()
+#' }
 get_rainfall <- function(sources = NULL,
                          location = NULL,
                          durations = NULL,
@@ -21,7 +23,8 @@ get_rainfall <- function(sources = NULL,
                          fields = NULL,
                          version = "v0",
                          format = c("jsonld", "csv"),
-                         client = get_api_client(),
+                         client = get_frost_client(),
+                         auth_type = c("basic", "oauth"),
                          flatten = TRUE,
                          return_response = FALSE) {
 
@@ -33,12 +36,13 @@ get_rainfall <- function(sources = NULL,
   # Create query
   req <- create_query(
     endpoint = "frequencies/rainfall",
+    client = client,
+    auth_type = auth_type,
     sources = sources,
     location = location,
     frequencies = frequencies,
     unit = unit,
     fields = fields,
-    client = client,
     version = version,
     format = format
   )

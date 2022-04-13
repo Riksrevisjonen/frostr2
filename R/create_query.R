@@ -14,6 +14,7 @@ create_query <-
            client,
            format,
            version,
+           auth_type,
            calculation_method = NULL,
            categories = NULL,
            cf_standard_names = NULL,
@@ -147,10 +148,7 @@ create_query <-
 
     # Create query
     req <- request(base_url) %>%
-      req_auth_basic(
-        username = client$id,
-        password = ""
-      ) %>% # client$secret
+      auth(client, auth_type) %>%
       req_url_path_append(endpoint) %>%
       req_url_path_append(paste0(version, ".", format)) %>%
       req_url_query(!!!params)

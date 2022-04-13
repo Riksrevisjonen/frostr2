@@ -74,7 +74,8 @@ get_sources <- function(ids = NULL,
                         fields = NULL,
                         version = "v0",
                         format = c("jsonld", "csv"),
-                        client = get_api_client(),
+                        client = get_frost_client(),
+                        auth_type = c("basic", "oauth"),
                         flatten = TRUE,
                         return_response = FALSE) {
 
@@ -87,6 +88,7 @@ get_sources <- function(ids = NULL,
   req <- create_query(
     endpoint <- "sources",
     client = client,
+    auth_type = auth_type,
     version = version,
     format = format,
     ids = ids,

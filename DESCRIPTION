@@ -28,6 +28,7 @@ Suggests:
 Language: en-US
 Imports: 
     attempt, 
+    askpass, 
     httr2,
     jsonlite, 
     magrittr,

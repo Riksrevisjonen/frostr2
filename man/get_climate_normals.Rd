@@ -10,7 +10,8 @@ get_climate_normals(
   period = NULL,
   format = "jsonld",
   version = "v0",
-  client = get_api_client(),
+  client = get_frost_client(),
+  auth_type = c("basic", "oauth"),
   flatten = TRUE,
   return_response = FALSE
 )
@@ -18,7 +19,8 @@ get_climate_normals(
 \arguments{
 \item{sources}{character: Source (station) ID, e.g. 'SN18700'.}
 
-\item{elements}{character: Elements. See `get_elements()` for available values.}
+\item{elements}{character: Elements. See `get_elements()` for available
+values.}
 
 \item{period}{character: The validity period, e.g. '1931/1960'.}
 
@@ -26,10 +28,12 @@ get_climate_normals(
 
 \item{version}{character: API version.}
 
-\item{client}{list: List with client id and secret.}
+\item{client}{list: List with client id and secret. Defaults to the
+`MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
-\item{flatten}{logical: If TRUE the response is transformed to an unnested
-table.}
+\item{auth_type}{character: Authentication method, either 'basic' or 'oauth'.}
+
+\item{flatten}{logical: If TRUE the response is transformed to a table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}

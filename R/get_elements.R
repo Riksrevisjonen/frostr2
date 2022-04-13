@@ -45,7 +45,7 @@ get_elements <- function(ids = NULL,
                          lang = c("en-US", "nb-NO", "nn-NO"),
                          version = "v0",
                          format = c("jsonld"),
-                         client = get_api_client(),
+                         client = get_frost_client(),
                          flatten = TRUE,
                          return_response = FALSE) {
 
@@ -110,7 +110,8 @@ get_code_tables <- function(ids = NULL,
                             lang = c("en-US", "nb-NO", "nn-NO"),
                             version = "v0",
                             format = "jsonld",
-                            client = get_api_client(),
+                            client = get_frost_client(),
+                            auth_type = c("basic", "oauth"),
                             flatten = TRUE,
                             return_response = FALSE) {
 
@@ -122,10 +123,11 @@ get_code_tables <- function(ids = NULL,
   # Create query
   req <- create_query(
     endpoint = "elements/codeTables",
+    client = client,
+    auth_type = auth_type,
     ids = ids,
     lang = lang,
     fields = fields,
-    client = client,
     version = version,
     format = format
   )

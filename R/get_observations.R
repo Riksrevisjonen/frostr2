@@ -2,13 +2,14 @@
 #'
 #' Get weather observations.
 #'
-#' For possible input parameters see `get_sources()`, `get_elements()`,
-#' and `get_observations_timeseries()`.
+#' For possible input parameters see `get_sources()`, `get_elements()`, and
+#' `get_observations_timeseries()`.
 #'
 #' @param sources character: Source (station) ID, e.g. 'SN18700'.
 #' @param reference_time character: Time range to get observations for, in
 #'   ISO-8601 format.
-#' @param elements character: Elements. See `get_elements()` for available values.
+#' @param elements character: Elements. See `get_elements()` for available
+#'   values.
 #' @param max_age character: The maximum observation age as an ISO-8601 period.
 #' @param limit integer: The maximum number of observation times to be returned
 #'   for each source/element combination
@@ -30,9 +31,10 @@
 #' @param fields character: Fields to return in the response.
 #' @param version character: API version.
 #' @param format character: Response format.
-#' @param client list: List with client id and secret.
-#' @param flatten logical: If TRUE the response is transformed to an unnested
-#'   table.
+#' @param client list: List with client id and secret. Defaults to the
+#'   `MET_FROST_ID` and `MET_FROST_SECRET` environment variables.
+#' @param auth_type character: Authentication method, either 'basic' or 'oauth'.
+#' @param flatten logical: If TRUE the response is transformed to a table.
 #' @param return_response logical: If TRUE a list of class `frost_api` is
 #'   returned, including the raw `httr2_response`.
 #'
@@ -67,7 +69,8 @@ get_observations <- function(sources,
                              fields = NULL,
                              version = "v0",
                              format = c("jsonld", "csv"),
-                             client = get_api_client(),
+                             client = get_frost_client(),
+                             auth_type = c("basic", "oauth"),
                              flatten = TRUE,
                              return_response = FALSE) {
 
@@ -92,9 +95,10 @@ get_observations <- function(sources,
     levels = levels,
     include_extra = include_extra,
     fields = fields,
-    client = client,
     version = version,
-    format = format
+    format = format,
+    client = client,
+    auth_type = auth_type
   )
 
   # Send query
@@ -119,7 +123,7 @@ get_observations <- function(sources,
 #' @export
 #' @examples
 #' \dontrun{
-#' df <- get_observations_ts()
+#' df <- get_observations_ts("SN23670")
 #' }
 get_observations_ts <-
   function(sources = NULL,
@@ -138,7 +142,7 @@ get_observations_ts <-
            fields = NULL,
            version = "v0",
            format = "jsonld",
-           client = get_api_client(),
+           client = get_frost_client(),
            flatten = TRUE,
            return_response = FALSE) {
 

@@ -23,7 +23,7 @@ get_elements(
   lang = c("en-US", "nb-NO", "nn-NO"),
   version = "v0",
   format = c("jsonld"),
-  client = get_api_client(),
+  client = get_frost_client(),
   flatten = TRUE,
   return_response = FALSE
 )
@@ -67,10 +67,10 @@ return values}
 
 \item{format}{character: Response format.}
 
-\item{client}{list: List with client id and secret.}
+\item{client}{list: List with client id and secret. Defaults to the
+`MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
-\item{flatten}{logical: If TRUE the response is transformed to an unnested
-table.}
+\item{flatten}{logical: If TRUE the response is transformed to a table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}

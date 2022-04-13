@@ -9,6 +9,7 @@ create_query(
   client,
   format,
   version,
+  auth_type,
   calculation_method = NULL,
   categories = NULL,
   cf_standard_names = NULL,
@@ -63,11 +64,14 @@ create_query(
 \arguments{
 \item{endpoint}{Endpoint}
 
-\item{client}{list: List with client id and secret.}
+\item{client}{list: List with client id and secret. Defaults to the
+`MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
 \item{format}{character: Response format.}
 
 \item{version}{character: API version.}
+
+\item{auth_type}{character: Authentication method, either 'basic' or 'oauth'.}
 
 \item{calculation_method}{character: Calculation method}
 
@@ -95,7 +99,8 @@ result.}
 
 \item{durations}{character: IDF duration(s), in minutes.}
 
-\item{elements}{character: Elements. See `get_elements()` for available values.}
+\item{elements}{character: Elements. See `get_elements()` for available
+values.}
 
 \item{exposure_categories}{integer: The exposure categories to get
 observations for, e.g. 1, 2 etc.}
