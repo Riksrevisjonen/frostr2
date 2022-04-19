@@ -46,6 +46,7 @@ get_elements <- function(ids = NULL,
                          version = "v0",
                          format = c("jsonld"),
                          client = get_frost_client(),
+                         auth_type = c("basic", "oauth"),
                          flatten = TRUE,
                          return_response = FALSE) {
 
@@ -74,6 +75,7 @@ get_elements <- function(ids = NULL,
     lang = lang,
     fields = fields,
     client = client,
+    auth_type = auth_type,
     version = version,
     format = format
   )

@@ -24,6 +24,7 @@ get_elements(
   version = "v0",
   format = c("jsonld"),
   client = get_frost_client(),
+  auth_type = c("basic", "oauth"),
   flatten = TRUE,
   return_response = FALSE
 )
@@ -69,6 +70,8 @@ return values}
 
 \item{client}{list: List with client id and secret. Defaults to the
 `MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
+
+\item{auth_type}{character: Authentication method, either 'basic' or 'oauth'.}
 
 \item{flatten}{logical: If TRUE the response is transformed to a table.}
 
