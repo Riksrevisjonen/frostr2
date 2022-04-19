@@ -64,7 +64,13 @@ get_frost_client <- function() {
   if (identical(secret, "")) {
     stop("No client secret found, please supply with `client` argument or with MET_FROST_SECRET env var")
   }
-  list(id = id, secrect = secret)
+  return(list(id = id, secrect = secret))
+
+  if (is_testing()) {
+    return(testing_key())
+  } else {
+    stop("No key found. Check your .Renviron")
+  }
 }
 
 #' Set Frost API Client
@@ -135,3 +141,21 @@ set_frost_client <- function(id = NULL, secret = NULL,
     }
   }
 }
+
+#' is_testing
+#' @noRd
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
+
+#' testing_key
+#' @noRd
+testing_key <- function() {
+  list(
+    id = secret_decrypt("VLAE_MPyNN646r6nXqpwj5Z8SF-ED4y64BOk3cI-NIZGAHCDQ7abvt3xe2-7wq3yhe-8ng",
+                        "FROSTR2_KEY"),
+    secret = secret_decrypt("BKLCSNzUFjIHdmkkSZsu1faLcUjvd86ZmgVNbyLkqUYE2JjgJNJNR2wqWXvCpIvSi9SEeA",
+                            "FROSTR2_KEY")
+  )
+}
+

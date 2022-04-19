@@ -17,3 +17,29 @@ test_that("rename_cols() works", {
   expect_identical(names(df), c("test", "data"))
   expect_identical(names(df$data), c("data.x" , "data.x2"))
 })
+
+test_that("send_query() works", {
+  # 200
+  u <- request("http://httpbin.org/status/200")
+  tmp <- bench::system_time(send_query(u, max_tries = 3, throttle_rate = 1))
+  expect_lte(tmp[2], .5)
+  # 400
+  u <- request("http://httpbin.org/status/400")
+  tmp <- bench::system_time(send_query(u, max_tries = 3, throttle_rate = 1))
+  expect_lte(tmp[2], .5)
+  # 429 (should retry)
+  u <- request("http://httpbin.org/status/429")
+  tmp <- bench::system_time(send_query(u, max_tries = 1, throttle_rate = 1))
+  expect_lte(tmp[2], .5)
+  tmp <- bench::system_time(send_query(u, max_tries = 3, throttle_rate = 1))
+  expect_gte(tmp[2], 3)
+    # 503 (should retry)
+  u <- request("http://httpbin.org/status/503")
+  tmp <- bench::system_time(send_query(u, max_tries = 1, throttle_rate = 1))
+  expect_lte(tmp[2], .5)
+  tmp <- bench::system_time(send_query(u, max_tries = 3, throttle_rate = 1))
+  expect_gte(tmp[2], 3)
+
+  # TO DO: Test throttle rate
+
+})

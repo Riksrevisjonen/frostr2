@@ -3,17 +3,19 @@ NULL
 
 #' send_query
 #' @param req A httr2 request
+#' @param max_tries Maximum number of retries
+#' @param throttle_rate Max number of requests per second
 #' @noRd
-send_query <- function(req) {
+send_query <- function(req, max_tries = 3, throttle_rate = 1) {
   resp <- req %>%
     req_user_agent(user_agent) %>%
     req_retry(
       is_transient = ~ resp_status(.x) %in% c(429, 503), # include 500 ?
-      max_tries = 3,
+      max_tries = max_tries,
       # max_seconds = 10,
       # backoff = ~ 2
     ) %>%
-    req_throttle(rate = 1) %>% # Max 1 request per second
+    req_throttle(rate = throttle_rate) %>% #
     req_error(is_error = function(resp) FALSE) %>%
     req_perform()
   resp
