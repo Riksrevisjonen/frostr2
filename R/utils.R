@@ -9,6 +9,7 @@ NULL
 send_query <- function(req, max_tries = 3, throttle_rate = 1) {
   resp <- req %>%
     req_user_agent(user_agent) %>%
+    req_headers("Accept-Encoding" = "gzip") %>%
     req_retry(
       is_transient = ~ resp_status(.x) %in% c(429, 503), # include 500 ?
       max_tries = max_tries,
