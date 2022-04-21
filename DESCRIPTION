@@ -29,6 +29,7 @@ Language: en-US
 Imports: 
     attempt, 
     askpass, 
+    bench,
     httr2,
     jsonlite, 
     magrittr,

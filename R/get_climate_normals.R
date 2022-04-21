@@ -7,7 +7,9 @@
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' df <- get_climate_normals("SN100")
+#' }
 get_climate_normals <- function(sources,
                                 elements = NULL,
                                 period = NULL,
