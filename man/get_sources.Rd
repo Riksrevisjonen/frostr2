@@ -26,7 +26,7 @@ get_sources(
   format = c("jsonld", "csv"),
   client = get_frost_client(),
   auth_type = c("basic", "oauth"),
-  flatten = TRUE,
+  simplify = TRUE,
   return_response = FALSE
 )
 }
@@ -101,7 +101,7 @@ result.}
 
 \item{auth_type}{character: Authentication method, either 'basic' or 'oauth'.}
 
-\item{flatten}{logical: If TRUE the response is transformed to a table.}
+\item{simplify}{logical: If TRUE the response is transformed to a standardized table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}

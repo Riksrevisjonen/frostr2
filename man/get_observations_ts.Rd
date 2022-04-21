@@ -22,7 +22,7 @@ get_observations_ts(
   version = "v0",
   format = "jsonld",
   client = get_frost_client(),
-  flatten = TRUE,
+  simplify = TRUE,
   return_response = FALSE
 )
 }
@@ -71,7 +71,7 @@ etc.}
 \item{client}{list: List with client id and secret. Defaults to the
 `MET_FROST_ID` and `MET_FROST_SECRET` environment variables.}
 
-\item{flatten}{logical: If TRUE the response is transformed to a table.}
+\item{simplify}{logical: If TRUE the response is transformed to a standardized table.}
 
 \item{return_response}{logical: If TRUE a list of class `frost_api` is
 returned, including the raw `httr2_response`.}

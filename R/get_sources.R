@@ -76,7 +76,7 @@ get_sources <- function(ids = NULL,
                         format = c("jsonld", "csv"),
                         client = get_frost_client(),
                         auth_type = c("basic", "oauth"),
-                        flatten = TRUE,
+                        simplify = TRUE,
                         return_response = FALSE) {
 
   if (!is.null(types))
@@ -114,7 +114,7 @@ get_sources <- function(ids = NULL,
   resp <- send_query(req)
 
   # Parse response
-  out <- parse_response(resp, flatten, return_response)
+  out <- parse_response(resp, simplify, return_response)
 
   return(out)
 }

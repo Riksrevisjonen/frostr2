@@ -25,7 +25,7 @@ get_rainfall <- function(sources = NULL,
                          format = c("jsonld", "csv"),
                          client = get_frost_client(),
                          auth_type = c("basic", "oauth"),
-                         flatten = TRUE,
+                         simplify = TRUE,
                          return_response = FALSE) {
 
   # Match args
@@ -51,7 +51,7 @@ get_rainfall <- function(sources = NULL,
   resp <- send_query(req)
 
   # Parse response
-  out <- parse_response(resp, flatten, return_response)
+  out <- parse_response(resp, simplify, return_response)
 
   return(out)
 }

@@ -19,7 +19,7 @@ get_locations <- function(names = NULL,
                           format = "jsonld",
                           client = get_frost_client(),
                           auth_type = c("basic", "oauth"),
-                          flatten = TRUE,
+                          simplify = TRUE,
                           return_response = FALSE) {
 
   # Match args
@@ -42,7 +42,7 @@ get_locations <- function(names = NULL,
   resp <- send_query(req)
 
   # Parse response
-  out <- parse_response(resp, flatten, return_response)
+  out <- parse_response(resp, simplify, return_response)
 
   return(out)
 }

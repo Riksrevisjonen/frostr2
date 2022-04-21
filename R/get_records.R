@@ -28,7 +28,7 @@ get_county_extremes <- function(sources = NULL,
                                 format = "jsonld",
                                 client = get_frost_client(),
                                 auth_type = c("basic", "oauth"),
-                                flatten = TRUE,
+                                simplify = TRUE,
                                 return_response = FALSE
                                 ) {
 
@@ -57,7 +57,7 @@ get_county_extremes <- function(sources = NULL,
   resp <- send_query(req)
 
   # Parse response
-  out <- parse_response(resp, flatten, return_response)
+  out <- parse_response(resp, simplify, return_response)
 
   return(out)
 

@@ -42,7 +42,7 @@ create_token <- function(client, return_response = FALSE) {
     req_body_raw(q, type = "application/x-www-form-urlencoded")
 
   send_query(req) %>%
-    parse_response(flatten = FALSE, return_response)
+    parse_response(simplify = FALSE, return_response)
 
 }
 

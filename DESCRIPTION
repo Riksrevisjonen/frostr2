@@ -35,6 +35,7 @@ Imports:
     tibble,
     tidyr,
     readr,
+    snakecase,
     memoise,
     cachem
 Depends: 

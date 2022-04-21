@@ -26,7 +26,7 @@ send_query <- function(req, max_tries = 3, throttle_rate = 1) {
 #' @param resp A httr2 response
 #' @inheritParams get_observations
 #' @noRd
-parse_response <- function(resp, flatten, return_response) {
+parse_response <- function(resp, simplify, return_response) {
 
   # Special parser if the response failed
   resp_error <- resp_is_error(resp)
@@ -47,7 +47,7 @@ parse_response <- function(resp, flatten, return_response) {
       )
     }
     # Convert to a single (unnested) tibble
-    if (flatten) parsed <- flatten_response(parsed)
+    if (simplify) parsed <- simplify_response(parsed)
   }
 
   if (!return_response) {
@@ -68,15 +68,15 @@ parse_response <- function(resp, flatten, return_response) {
 }
 
 #' flatten_response
-#' @param parsed Parsed response
+#' @param df A data.frame
 #' @noRd
-flatten_response <- function(parsed) {
+flatten_response <- function(df) {
 
   # Convert to nested tibble
-  df <- tibble::as_tibble(parsed)
+  df <- tibble::as_tibble(df)
 
   # Rename and unnest
-  df <- rename_cols(df)
+  # df <- rename_cols(df)
   if ("data" %in% names(df)) {
     df$data <- rename_cols(df$data, "data")
     df <- tidyr::unnest(df, cols = "data")
@@ -86,6 +86,11 @@ flatten_response <- function(parsed) {
       rename_cols(x, "data.observations")
     })
     df <- tidyr::unnest(df, cols = "data.observations")
+  }
+  if ("data.observations.level" %in% names(df)) {
+    df$data.observations.level <- rename_cols(
+      df$data.observations.level, "data.observations.level")
+    df <- tidyr::unnest(df, cols = "data.observations.level")
   }
   if ("data.values" %in% names(df)) {
     df$data.values <- lapply(df$data.values, function(x) {
@@ -97,11 +102,38 @@ flatten_response <- function(parsed) {
     df$data.geometry <- rename_cols(df$data.geometry, "data.geometry")
     df <- tidyr::unnest(df, cols = "data.geometry")
   }
-
-  # Select data columns
-  df <- df[grepl('data', names(df))]
+  if (any(grepl("data.calculationMethod", names(df)))) {
+    df$data.calculationMethod <- rename_cols(df$data.calculationMethod, "data.calculationMethod")
+    df <- tidyr::unnest(df, cols = "data.calculationMethod")
+  }
+  if (any(grepl("data.cfConvention", names(df)))) {
+    df$data.cfConvention <- rename_cols(df$data.oldConvention, "data.cfConvention")
+    df <- tidyr::unnest(df, cols = "data.cfConvention")
+  }
+  if (any(grepl("data.oldConvention", names(df)))) {
+    df$data.oldConvention <- rename_cols(df$data.oldConvention, "data.oldConvention")
+    df <- tidyr::unnest(df, cols = "data.oldConvention")
+  }
+  if (any(grepl("data.timeOffsets", names(df)))) {
+    df$data.timeOffsets <- rename_cols(df$data.timeOffsets, "data.timeOffsets")
+    df <- tidyr::unnest(df, cols = "data.timeOffsets")
+  }
+  if (any(grepl("data.sensorLevels", names(df)))) {
+    df$data.sensorLevels <- rename_cols(df$data.sensorLevels, "data.sensorLevels")
+    df <- tidyr::unnest(df, cols = "data.sensorLevels")
+  }
 
   return(df)
+}
+
+#' simplify_response
+#' @param parsed Parsed response
+#' @noRd
+simplify_response <- function(parsed) {
+  df <- flatten_response(parsed)
+  df <- df[grepl('data', names(df))]
+  df <- clean_names(df)
+  df
 }
 
 #' rename_cols
@@ -109,10 +141,20 @@ flatten_response <- function(parsed) {
 #' @param prefix A prefix for the columns to rename. Optional
 #' @noRd
 rename_cols <- function(df, prefix = NULL) {
-  names(df) <- gsub("[@]", "", names(df))
   if (!is.null(prefix)) {
     names(df) <- paste0(prefix, ".", names(df))
   }
+  df
+}
+#' rename_cols
+#' @param df A data.frame
+#' @noRd
+clean_names <- function(df) {
+  names(df) <- sub("[@]", "", names(df))
+  names(df) <- sub("^data[.]", "", names(df))
+  names(df) <- sub("^observations[.]", "", names(df))
+  names(df) <- sub("level[.]levelType", "levelType", names(df))
+  names(df) <- snakecase::to_snake_case(names(df))
   df
 }
 

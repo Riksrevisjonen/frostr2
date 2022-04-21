@@ -34,7 +34,7 @@
 #' @param client list: List with client id and secret. Defaults to the
 #'   `MET_FROST_ID` and `MET_FROST_SECRET` environment variables.
 #' @param auth_type character: Authentication method, either 'basic' or 'oauth'.
-#' @param flatten logical: If TRUE the response is transformed to a table.
+#' @param simplify logical: If TRUE the response is transformed to a standardized table.
 #' @param return_response logical: If TRUE a list of class `frost_api` is
 #'   returned, including the raw `httr2_response`.
 #'
@@ -71,7 +71,7 @@ get_observations <- function(sources,
                              format = c("jsonld", "csv"),
                              client = get_frost_client(),
                              auth_type = c("basic", "oauth"),
-                             flatten = TRUE,
+                             simplify = TRUE,
                              return_response = FALSE) {
 
   # Match args
@@ -105,7 +105,7 @@ get_observations <- function(sources,
   resp <- send_query(req)
 
   # Parse response
-  out <- parse_response(resp, flatten, return_response)
+  out <- parse_response(resp, simplify, return_response)
 
   return(out)
 }
@@ -143,7 +143,7 @@ get_observations_ts <-
            version = "v0",
            format = "jsonld",
            client = get_frost_client(),
-           flatten = TRUE,
+           simplify = TRUE,
            return_response = FALSE) {
 
     # Match args
@@ -175,7 +175,7 @@ get_observations_ts <-
     resp <- send_query(req)
 
     # Parse response
-    out <- parse_response(resp, flatten, return_response)
+    out <- parse_response(resp, simplify, return_response)
 
     return(out)
   }
