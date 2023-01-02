@@ -129,11 +129,12 @@ set_frost_client <- function(id = NULL, secret = NULL,
       current <- readLines(f)
     } else {
       file.create(f)
+      current <- character(0)
     }
     if (!any(grepl("MET_FROST_ID|MET_FROST_SECRET", current))){
       txt1 <- sprintf("MET_FROST_ID = '%s'", id)
       txt2 <- sprintf("MET_FROST_SECRET = '%s'", secret)
-      writeLines(c(txt1, txt2), f)
+      write(c(txt1, txt2), f, append = TRUE)
       message("The MET FROST API enviromental variables have been set. Restart R for the changes to take effect.")
     } else {
       stop("Looks like your MET FROST API environment variables are already defined. Check your .Renviron.",
